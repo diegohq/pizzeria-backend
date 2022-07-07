@@ -4,6 +4,8 @@ const router = Router();
 
 router.get('/test', (req: Request, res: Response) => {
 
+    throw new Error("Test");
+
     return res.json({ok: true});
 
 });
