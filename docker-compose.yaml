@@ -16,3 +16,15 @@ services:
     command: ['npm', 'start']
     volumes:
       - ./:/code/pizzeria/backend
+    depends_on:
+      - postgres
+  postgres:
+    image: 'postgres:14.4'
+    environment:
+      - POSTGRES_USER=pizzeria
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=pizzeria
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./docker/volumes/postgres:/var/lib/postgresql/data
