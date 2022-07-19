@@ -6,6 +6,8 @@ services:
       - '3000:3000'
     working_dir: '/code/pizzeria/backend'
     command: ['npm', 'start']
+    stdin_open: true
+    tty: true
     volumes:
       - ./:/code/pizzeria/backend
     depends_on:
