@@ -9,6 +9,10 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import uploadConfig from "./config/multer";
 import multer from "multer";
 import { ListByCategoryController } from "./controllers/product/ListByCategoryController";
+import { CreateOrderController } from "./controllers/order/CreateOrderController";
+import { RemoveOrderController } from "./controllers/order/RemoveOrderController";
+import { AddItemController } from "./controllers/order/AddItemController";
+import { RemoveItemController } from "./controllers/order/RemoveItemController";
 
 const router = Router();
 
@@ -38,10 +42,21 @@ router.post(
   upload.single("banner"),
   new CreateProductController().handle
 );
-router.get(
-  "/products",
+router.get("/products", isAuthenticated, new ListByCategoryController().handle);
+
+// Orders
+router.post("/orders", isAuthenticated, new CreateOrderController().handle);
+router.delete("/orders/:orderId", isAuthenticated, new RemoveOrderController().handle);
+
+router.post(
+  "/orders/:orderId",
   isAuthenticated,
-  new ListByCategoryController().handle
+  new AddItemController().handle
+);
+router.delete(
+  "/orders/:orderId/:itemId",
+  isAuthenticated,
+  new RemoveItemController().handle
 );
 
 export { router };
