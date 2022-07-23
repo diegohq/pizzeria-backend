@@ -3,12 +3,12 @@ import { RemoveItemService } from "../../services/order/RemoveItemService";
 
 export class RemoveItemController {
   async handle(req: Request, res: Response) {
-    const item_id = req.params.itemId as string;
+    const itemId = req.params.itemId as string;
 
     const service = new RemoveItemService();
     return res.json(
       await service.execute({
-        item_id,
+        item_id: itemId,
       })
     );
   }
